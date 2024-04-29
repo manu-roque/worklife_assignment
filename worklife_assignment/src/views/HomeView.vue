@@ -7,13 +7,47 @@
       </form>
     </div>
 
-    <div class="results"></div>
+    <div class="results">
+      <data-card v-for="item in itemsArray" :key="item.id" :cardData="item" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import axios from 'axios'
+import DataCard from '../components/DataCard.vue'
+
 export default {
-  name: 'HomeView'
+  components: {
+    DataCard
+  },
+  name: 'HomeView',
+  data() {
+    return {
+      answer: {},
+      itemsArray: []
+    }
+  },
+  methods: {
+    async getAnswer() {
+      try {
+        const { data } = await axios.get(
+          'https://www.rijksmuseum.nl/api/en/usersets/1836065-meestermatches?key=t75FdAMR&format=json'
+        )
+
+        this.answer = data
+        this.itemsArray = data.userSet.setItems
+
+        console.log('data: ', this.itemsArray)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  beforeMount() {
+    this.getAnswer()
+    console.log('itemsarray: ', this.itemsArray)
+  }
 }
 </script>
 
@@ -73,8 +107,12 @@ button:hover {
 .results {
   position: relative;
 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
   width: 100%;
-  height: 200px;
+  height: auto;
 
   top: 20px;
 
