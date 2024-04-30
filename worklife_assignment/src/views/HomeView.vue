@@ -19,7 +19,13 @@
     <ModalWindow :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event">
       <div class="image-and-title">
         <img :src="this.selectedCardData.webImage.url" alt="Card Image" class="modal-image" />
-        <h2>{{ this.selectedCardData.title }}</h2>
+        <div>
+          <h2>
+            {{ this.selectedCardData.title }}
+          </h2>
+          <br />
+          <div>{{ this.selectedCardData.longTitle }}</div>
+        </div>
       </div>
     </ModalWindow>
 
