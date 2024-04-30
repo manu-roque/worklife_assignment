@@ -22,9 +22,13 @@ import HomeView from './views/HomeView.vue'
   font-weight: 400;
 }
 
+body {
+  background-color: #f1f1f1;
+}
+
 .wrapper {
   min-height: 100vh;
+  height: auto;
   position: relative;
-  background-color: #f1f1f1;
 }
 </style>

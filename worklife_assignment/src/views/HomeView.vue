@@ -8,27 +8,55 @@
     </div>
 
     <div class="results">
-      <data-card v-for="item in itemsArray" :key="item.id" :cardData="item" />
+      <data-card
+        v-for="item in visibleCards"
+        :key="item.id"
+        :cardData="item"
+        @click="openModal(item)"
+      />
     </div>
+
+    <ModalWindow :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event">
+      <img :src="this.selectedCardData.image.cdnUrl" alt="Card Image" class="modal-image" />
+      <h2>{{ this.selectedCardData.relationDescription }}</h2>
+    </ModalWindow>
+
+    <button v-if="visibleCount < itemsArray.length" @click="loadMore" class="load-more">
+      Load More
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import axios from 'axios'
 import DataCard from '../components/DataCard.vue'
+import ModalWindow from '../components/ModalWindow.vue'
 
 export default {
   components: {
-    DataCard
+    DataCard,
+    ModalWindow
   },
   name: 'HomeView',
   data() {
     return {
       answer: {},
-      itemsArray: []
+      itemsArray: [],
+      loadStep: 12,
+      visibleCount: 12,
+      isModalVisible: false,
+      selectedCardData: {}
+    }
+  },
+  computed: {
+    visibleCards() {
+      return this.itemsArray.slice(0, this.visibleCount)
     }
   },
   methods: {
+    loadMore() {
+      this.visibleCount += this.loadStep
+    },
     async getAnswer() {
       try {
         const { data } = await axios.get(
@@ -42,6 +70,12 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    openModal(card: any) {
+      this.selectedCardData = card
+
+      console.log('selected: ', this.selectedCardData)
+      this.isModalVisible = true
     }
   },
   beforeMount() {
@@ -63,7 +97,7 @@ export default {
 
   margin: 0 auto;
 
-  background-color: pink;
+  /* background-color: pink; */
 
   @media (min-width: 1140px) {
     max-width: 1140px;
@@ -116,6 +150,23 @@ button:hover {
 
   top: 20px;
 
-  background: lightblue;
+  /* background: lightblue; */
+}
+
+.load-more-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px auto;
+  display: block;
+}
+
+.modal-image {
+  width: 200px;
+  height: 100%;
 }
 </style>

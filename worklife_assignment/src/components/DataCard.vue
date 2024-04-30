@@ -34,7 +34,7 @@ export default {
     }
   },
   created() {
-    console.log('cardData', this.cardData)
+    // console.log('cardData', this.cardData)
   },
   methods: {
     formatKey(key) {
@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
 .card {
-  width: 200px; /* Width of the card */
+  width: 230px; /* Width of the card */
   height: 100%; /* Height of the card to make it square */
   border: 1px solid #ccc;
   border-radius: 8px;
