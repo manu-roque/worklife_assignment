@@ -1,8 +1,8 @@
 <template>
   <div class="main-container">
     <div class="search">
-      <form>
-        <input type="text" placeholder="Search..." name="search" />
+      <form @submit.prevent="filterCards">
+        <input v-model="query" type="text" placeholder="Search..." name="search" />
         <button type="submit">Go</button>
       </form>
     </div>
@@ -17,8 +17,10 @@
     </div>
 
     <ModalWindow :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event">
-      <img :src="this.selectedCardData.image.cdnUrl" alt="Card Image" class="modal-image" />
-      <h2>{{ this.selectedCardData.relationDescription }}</h2>
+      <div class="image-and-title">
+        <img :src="this.selectedCardData.image.cdnUrl" alt="Card Image" class="modal-image" />
+        <h2>{{ this.selectedCardData.relationDescription }}</h2>
+      </div>
     </ModalWindow>
 
     <button v-if="visibleCount < itemsArray.length" @click="loadMore" class="load-more">
@@ -45,8 +47,13 @@ export default {
       loadStep: 12,
       visibleCount: 12,
       isModalVisible: false,
-      selectedCardData: {}
+      selectedCardData: {},
+      query: '',
+      filtered: []
     }
+  },
+  mounted() {
+    this.filtered = this.itemsArray
   },
   computed: {
     visibleCards() {
@@ -76,7 +83,8 @@ export default {
 
       console.log('selected: ', this.selectedCardData)
       this.isModalVisible = true
-    }
+    },
+    filterCards() {}
   },
   beforeMount() {
     this.getAnswer()
@@ -166,7 +174,12 @@ button:hover {
 }
 
 .modal-image {
-  width: 200px;
-  height: 100%;
+  width: 100px;
+  height: 50%;
+  margin-right: 10px;
+}
+
+.image-and-title {
+  display: flex;
 }
 </style>
