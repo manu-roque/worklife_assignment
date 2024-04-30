@@ -10,9 +10,9 @@
 <template>
   <!-- <div class="card" @mouseenter="titleDisplay = true" @mouseleave="titleDisplay = false"> -->
   <div class="card">
-    <img :src="cardData.image.cdnUrl" alt="Card Image" class="card-image" />
+    <img :src="cardData.webImage.url" alt="Card Image" class="card-image" />
     <div class="card-title">
-      <div>{{ cardData.relationDescription }}</div>
+      <div>{{ cardData.title }}</div>
     </div>
     <!-- <div class="card-content">
       <div v-for="(value, key) in cardData" :key="key"></div>

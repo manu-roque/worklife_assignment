@@ -18,8 +18,8 @@
 
     <ModalWindow :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event">
       <div class="image-and-title">
-        <img :src="this.selectedCardData.image.cdnUrl" alt="Card Image" class="modal-image" />
-        <h2>{{ this.selectedCardData.relationDescription }}</h2>
+        <img :src="this.selectedCardData.webImage.url" alt="Card Image" class="modal-image" />
+        <h2>{{ this.selectedCardData.title }}</h2>
       </div>
     </ModalWindow>
 
@@ -67,13 +67,14 @@ export default {
     async getAnswer() {
       try {
         const { data } = await axios.get(
-          'https://www.rijksmuseum.nl/api/en/usersets/1836065-meestermatches?key=t75FdAMR&format=json'
+          // 'https://www.rijksmuseum.nl/api/en/usersets/1836065-meestermatches?key=t75FdAMR&format=json'
+          'https://www.rijksmuseum.nl/api/en/collection?key=t75FdAMR&type=print&ps=40'
         )
 
         this.answer = data
-        this.itemsArray = data.userSet.setItems
+        this.itemsArray = data.artObjects
 
-        console.log('data: ', this.itemsArray)
+        console.log('data: ', data)
       } catch (error) {
         console.log(error)
       }
