@@ -3,7 +3,7 @@
     <nav>
       <div class="branding">
         <img
-          src="https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/62581084002e1c620ccf7e22_worklife_logo_mobile.svg"
+          src="https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/61af67929d99f1401ab23852_logo.svg"
           alt=""
         />
       </div>
@@ -89,7 +89,7 @@ export default defineComponent({
 
 <style scoped>
 header {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(220, 206, 206, 0.8);
   z-index: 99;
   width: 100%;
   position: fixed;
@@ -113,6 +113,7 @@ nav {
 
 .branding {
   display: flex;
+  height: 50px;
   align-items: center;
 }
 
@@ -124,7 +125,8 @@ nav {
 }
 
 .branding > img {
-  width: 50px;
+  width: 100%;
+  height: 30px;
   transition: 0.5s ease all;
 }
 
@@ -148,7 +150,7 @@ nav {
 }
 
 .scrolled-nav {
-  background-color: #000000;
+  background-color: #d3d3b2;
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -159,9 +161,7 @@ nav {
 }
 
 .scrolled-nav > nav > .branding > img {
-  width: 40px;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  width: 80%;
+  height: 30px;
 }
 </style>
