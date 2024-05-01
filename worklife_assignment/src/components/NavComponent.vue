@@ -10,10 +10,7 @@
 
       <div class="icon">
         <!-- Another Icon Should go Here, change company logo later -->
-        <img
-          src="https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/62581084002e1c620ccf7e22_worklife_logo_mobile.svg"
-          alt=""
-        />
+        <div>Fav Count: {{ favoriteCount }}</div>
       </div>
 
       <transition name="mobile-nav"> </transition>
@@ -22,14 +19,37 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, onMounted, onUnmounted } from 'vue'
+import useFavorites from '@/store/useFavs'
+
+export default defineComponent({
+  setup() {
+    const { favoriteCount, synchronizeFavoriteCount } = useFavorites()
+
+    function handleStorageEvent(event: StorageEvent) {
+      if (event.key === 'favoriteCount') {
+        synchronizeFavoriteCount()
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('storage', handleStorageEvent)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('storage', handleStorageEvent)
+    })
+
+    return { favoriteCount }
+  },
   name: 'NavComponent',
   data() {
     return {
       scrollNav: false,
       mobile: false,
       mobileNav: false,
-      windowWidth: 0
+      windowWidth: 0,
+      favCount: 0
     }
   },
   created() {
@@ -60,9 +80,11 @@ export default {
       }
       this.mobile = false
       this.mobileNav = false
-    }
+    },
+
+    updateFavCount() {}
   }
-}
+})
 </script>
 
 <style scoped>

@@ -1,12 +1,3 @@
-<!-- <template>
-  <div class="card">
-    <div class="card-content">
-      <div v-for="(value, key) in cardData" :key="key"></div>
-    </div>
-    <img :src="cardData.image.cdnUrl" />
-  </div>
-</template> -->
-
 <template>
   <!-- <div class="card" @mouseenter="titleDisplay = true" @mouseleave="titleDisplay = false"> -->
   <div class="card">

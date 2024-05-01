@@ -5,7 +5,7 @@
       <div class="close-btn" @click="closeModal">&#10005;</div>
 
       <div class="modal-buttons">
-        <button @click="closeModal">Add to Favourites</button>
+        <button @click="incrementFavoriteCount">Add to Favourites</button>
         <button @click="closeModal">Details</button>
       </div>
     </div>
@@ -13,16 +13,28 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+import useFavorites from '@/store/useFavs'
+
+export default defineComponent({
+  setup() {
+    const { incrementFavoriteCount } = useFavorites()
+    return { incrementFavoriteCount }
+  },
   props: {
     isVisible: Boolean
   },
   methods: {
     closeModal() {
       this.$emit('update:isVisible', false)
+    },
+    addToFavourite() {
+      console.log('localstorage: ', localStorage.getItem('favCount'))
+      // this.$emit('addToFav')
+      this.$emit('update:isVisible', false)
     }
   }
-}
+})
 </script>
 
 <style scoped>

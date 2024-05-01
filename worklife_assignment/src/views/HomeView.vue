@@ -15,6 +15,7 @@
         @click="openModal(item)"
       />
     </div>
+    <!-- @addToFav="incFavCount" -->
 
     <ModalWindow :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event">
       <div class="image-and-title">
@@ -29,9 +30,11 @@
       </div>
     </ModalWindow>
 
-    <button v-if="visibleCount < itemsArray.length" @click="loadMore" class="load-more">
-      Load More
-    </button>
+    <div class="load-more-container">
+      <button v-if="visibleCount < itemsArray.length" @click="loadMore" class="load-more">
+        Load More
+      </button>
+    </div>
   </div>
 </template>
 
@@ -39,6 +42,7 @@
 import axios from 'axios'
 import DataCard from '../components/DataCard.vue'
 import ModalWindow from '../components/ModalWindow.vue'
+import { watchEffect } from 'vue'
 
 export default {
   components: {
@@ -55,9 +59,13 @@ export default {
       isModalVisible: false,
       selectedCardData: {},
       query: '',
-      filtered: []
+      filtered: [],
+      favCount: 0
     }
   },
+  // created() {
+  //   window.addEventListener('storage', this.handleStorageChange)
+  // },
   mounted() {
     this.filtered = this.itemsArray
   },
@@ -73,7 +81,6 @@ export default {
     async getAnswer() {
       try {
         const { data } = await axios.get(
-          // 'https://www.rijksmuseum.nl/api/en/usersets/1836065-meestermatches?key=t75FdAMR&format=json'
           'https://www.rijksmuseum.nl/api/en/collection?key=t75FdAMR&type=print&ps=40'
         )
 
@@ -92,6 +99,15 @@ export default {
       this.isModalVisible = true
     },
     filterCards() {}
+    // incFavCount() {
+    //   this.favCount++
+    //   localStorage.setItem('favCount', this.favCount.toString())
+    // },
+    // handleStorageChange(event: any) {
+    //   if (event.key === 'favCount') {
+    //     this.incFavCount()
+    //   }
+    // }
   },
   beforeMount() {
     this.getAnswer()
@@ -154,7 +170,7 @@ button:hover {
 }
 
 .results {
-  position: relative;
+  /* position: relative;
 
   display: flex;
   flex-wrap: wrap;
@@ -163,7 +179,14 @@ button:hover {
   width: 100%;
   height: auto;
 
-  top: 20px;
+  top: 20px; */
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 20px;
+  margin-bottom: 30px;
 
   /* background: lightblue; */
 }
@@ -176,7 +199,8 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 20px auto;
+  /* margin: 20px auto; */
+  margin: 20px 0; /* Add vertical space around the button */
   display: block;
 }
 
@@ -188,5 +212,11 @@ button:hover {
 
 .image-and-title {
   display: flex;
+}
+
+.load-more-container {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  padding: 20px; /* Add padding for spacing around the button */
 }
 </style>
