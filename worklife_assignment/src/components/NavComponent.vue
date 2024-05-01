@@ -3,6 +3,7 @@
     <nav>
       <div class="branding">
         <img
+          id="logo"
           src="https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/61af67929d99f1401ab23852_logo.svg"
           alt=""
         />
@@ -10,7 +11,9 @@
 
       <div class="icon">
         <!-- Another Icon Should go Here, change company logo later -->
-        <div>Fav Count: {{ favoriteCount }}</div>
+        <div class="fav-number">{{ favoriteCount }}</div>
+
+        <i class="fa-regular fa-heart"> </i>
       </div>
 
       <transition name="mobile-nav"> </transition>
@@ -74,10 +77,16 @@ export default defineComponent({
 
     checkScreen() {
       this.windowWidth = window.innerWidth
-      if (this.windowWidth <= 750) {
+      const imgElement = document.getElementById('logo')
+
+      if (this.windowWidth <= 1030) {
         this.mobile = true
+        imgElement.src =
+          'https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/62581084002e1c620ccf7e22_worklife_logo_mobile.svg'
         return
       }
+      imgElement.src =
+        'https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/61af67929d99f1401ab23852_logo.svg'
       this.mobile = false
       this.mobileNav = false
     },
@@ -127,7 +136,6 @@ nav {
 .branding > img {
   width: 100%;
   height: 30px;
-  transition: 0.5s ease all;
 }
 
 .icon {
@@ -140,13 +148,19 @@ nav {
 }
 
 .icon > i {
-  cursor: pointer;
-  font-size: 24px;
-  transition: 0.8s ease all;
+  font-size: 55px;
+  position: relative;
+  color: rgb(249, 102, 102);
 }
 
-.icon-active {
-  transform: rotate (180deg);
+.fav-number {
+  position: absolute;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 18px;
+  color: rgb(249, 102, 102);
 }
 
 .scrolled-nav {
@@ -160,8 +174,36 @@ nav {
   padding: 8px, 0;
 }
 
-.scrolled-nav > nav > .branding > img {
-  width: 80%;
-  height: 30px;
+@media (max-width: 1030px) {
+  .branding > img {
+    width: 100%;
+    height: 50px;
+    transition: 0.5s ease all;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    height: 100%;
+  }
+
+  .icon > i {
+    font-size: 50px;
+    position: relative;
+    color: rgb(249, 102, 102);
+  }
+
+  .fav-number {
+    position: absolute;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 14px;
+    color: rgb(249, 102, 102);
+  }
 }
 </style>

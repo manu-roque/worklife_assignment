@@ -37,7 +37,7 @@
     </ModalWindow>
 
     <div class="load-more-container">
-      <button v-if="visibleCount < itemsArray.length" @click="loadMore" class="load-more">
+      <button v-if="visibleCount < itemsArray.length" @click="loadMore" class="load-more-btn">
         Load More
       </button>
     </div>
@@ -258,6 +258,11 @@ button:hover {
     margin-top: 30px;
     margin-bottom: 20px;
   }
+
+  .load-more-btn {
+    width: 70%;
+    padding: 20px 20px;
+  }
 }
 
 @media (max-width: 414px) {
@@ -277,6 +282,43 @@ button:hover {
   .modal-description {
     width: 90%;
     font-size: 12px;
+  }
+  .load-more-btn {
+    width: 100%;
+    padding: 20px 20px;
+  }
+}
+
+@media (max-width: 375px) {
+  .modal-title {
+    font-size: 22px;
+    font-weight: bold;
+    word-spacing: -2px;
+  }
+
+  .modal-title {
+    width: 90%;
+    font-size: 22px;
+    font-weight: bold;
+    word-spacing: -2px;
+  }
+
+  .modal-description {
+    width: 90%;
+    font-size: 12px;
+  }
+
+  .modal-image {
+    width: 60%;
+    height: 40%;
+    margin-right: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .load-more-btn {
+    width: 100%;
+    padding: 20px 20px;
   }
 }
 </style>
