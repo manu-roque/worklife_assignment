@@ -27,11 +27,11 @@
       <div class="image-and-title">
         <img :src="this.selectedCardData.webImage.url" alt="Card Image" class="modal-image" />
         <div>
-          <h2>
+          <div class="modal-title">
             {{ this.selectedCardData.title }}
-          </h2>
+          </div>
           <br />
-          <div>{{ this.selectedCardData.longTitle }}</div>
+          <div class="modal-description">{{ this.selectedCardData.longTitle }}</div>
         </div>
       </div>
     </ModalWindow>
@@ -42,7 +42,13 @@
       </button>
     </div>
     <transition name="slide">
-      <DetailsComponent v-if="showDetails" @close="showDetails = false" />
+      <DetailsComponent
+        :selectedCard="selectedCardData"
+        :isDetailsVisible="showDetails"
+        @update:isDetailsVisible="showDetails = $event"
+        v-if="showDetails"
+        @close="showDetails = false"
+      />
     </transition>
   </div>
 </template>
@@ -103,9 +109,9 @@ export default {
     openModal(card: any) {
       this.selectedCardData = card
 
-      console.log('selected: ', this.selectedCardData)
       this.isModalVisible = true
     },
+
     filterCards() {}
   },
   beforeMount() {
@@ -226,5 +232,51 @@ button:hover {
   display: flex;
   justify-content: center; /* Center the button horizontally */
   padding: 20px; /* Add padding for spacing around the button */
+}
+
+@media (max-width: 1030px) {
+  .modal-title {
+    width: 90%;
+    font-size: 32px;
+    font-weight: bold;
+    word-spacing: -2px;
+  }
+
+  .image-and-title {
+    flex-direction: column;
+  }
+
+  .modal-description {
+    width: 90%;
+    font-size: 22px;
+  }
+
+  .modal-image {
+    width: 100%;
+    height: 50%;
+    margin-right: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 414px) {
+  .modal-title {
+    font-size: 22px;
+    font-weight: bold;
+    word-spacing: -2px;
+  }
+
+  .modal-title {
+    width: 90%;
+    font-size: 22px;
+    font-weight: bold;
+    word-spacing: -2px;
+  }
+
+  .modal-description {
+    width: 90%;
+    font-size: 12px;
+  }
 }
 </style>

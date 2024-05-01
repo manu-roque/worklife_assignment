@@ -42,12 +42,12 @@ export default {
 
 <style scoped>
 .card {
-  width: 230px; /* Width of the card */
-  height: 100%; /* Height of the card to make it square */
+  width: 230px;
+  height: 100%;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
-  position: relative; /* Needed for absolute positioning of content */
+  position: relative;
   display: flex;
   margin-top: 20px;
   flex-direction: column;
@@ -77,5 +77,30 @@ export default {
 
 .card:hover .card-title {
   transform: translateY(0%);
+}
+
+@media (max-width: 1090px) {
+  .card-title {
+    display: none;
+  }
+}
+
+@media (max-width: 414px) {
+  .card {
+    width: 140px;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+    flex-direction: column;
+
+    cursor: pointer;
+  }
+
+  .card-title {
+    display: none;
+  }
 }
 </style>

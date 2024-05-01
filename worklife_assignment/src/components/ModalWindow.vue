@@ -104,17 +104,59 @@ export default defineComponent({
   border-radius: 5px;
   cursor: pointer;
   flex: 1; /* Ensure buttons take equal width */
-  margin: 30px 10px;
+  margin: 10px 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1030px) {
   /* Adjusts for tablet and smaller devices */
   .modal-overlay {
     align-items: flex-end;
   }
   .modal-content {
     width: 90%; /* Makes the modal full-width on smaller screens */
-    height: 35%; /* Adjust height as needed */
+    height: auto; /* Adjust height as needed */
+  }
+
+  .modal-buttons {
+    width: 100%;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .modal-buttons button {
+    padding: 15px 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1; /* Ensure buttons take equal width */
+    margin: 10px 10px;
+  }
+}
+
+@media (max-width: 414px) {
+  .modal-overlay {
+    align-items: flex-end;
+  }
+
+  .modal-content {
+    height: auto;
+  }
+
+  .modal-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1; /* Ensure buttons take equal width */
+    margin: 10px 10px;
   }
 }
 </style>
