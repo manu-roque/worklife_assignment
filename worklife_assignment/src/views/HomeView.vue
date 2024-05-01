@@ -7,6 +7,8 @@
       </form>
     </div>
 
+    <!-- @addToFav="incFavCount" -->
+
     <div class="results">
       <data-card
         v-for="item in visibleCards"
@@ -15,9 +17,13 @@
         @click="openModal(item)"
       />
     </div>
-    <!-- @addToFav="incFavCount" -->
 
-    <ModalWindow :isVisible="isModalVisible" @update:isVisible="isModalVisible = $event">
+    <ModalWindow
+      :isVisible="isModalVisible"
+      :isDetailsVisible="showDetails"
+      @update:isVisible="isModalVisible = $event"
+      @update:isDetailsVisible="showDetails = $event"
+    >
       <div class="image-and-title">
         <img :src="this.selectedCardData.webImage.url" alt="Card Image" class="modal-image" />
         <div>
@@ -35,6 +41,9 @@
         Load More
       </button>
     </div>
+    <transition name="slide">
+      <DetailsComponent v-if="showDetails" @close="showDetails = false" />
+    </transition>
   </div>
 </template>
 
@@ -42,12 +51,13 @@
 import axios from 'axios'
 import DataCard from '../components/DataCard.vue'
 import ModalWindow from '../components/ModalWindow.vue'
-import { watchEffect } from 'vue'
+import DetailsComponent from '../components/DetailsComponent.vue'
 
 export default {
   components: {
     DataCard,
-    ModalWindow
+    ModalWindow,
+    DetailsComponent
   },
   name: 'HomeView',
   data() {
@@ -57,15 +67,13 @@ export default {
       loadStep: 12,
       visibleCount: 12,
       isModalVisible: false,
+      showDetails: false,
       selectedCardData: {},
       query: '',
       filtered: [],
       favCount: 0
     }
   },
-  // created() {
-  //   window.addEventListener('storage', this.handleStorageChange)
-  // },
   mounted() {
     this.filtered = this.itemsArray
   },
@@ -99,15 +107,6 @@ export default {
       this.isModalVisible = true
     },
     filterCards() {}
-    // incFavCount() {
-    //   this.favCount++
-    //   localStorage.setItem('favCount', this.favCount.toString())
-    // },
-    // handleStorageChange(event: any) {
-    //   if (event.key === 'favCount') {
-    //     this.incFavCount()
-    //   }
-    // }
   },
   beforeMount() {
     this.getAnswer()
@@ -117,6 +116,15 @@ export default {
 </script>
 
 <style>
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
 .main-container {
   position: relative;
 
