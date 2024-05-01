@@ -1,18 +1,20 @@
 <template>
-  <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
-    <div class="modal-content">
-      <slot></slot>
-      <div class="close-btn" @click="closeModal">&#10005;</div>
+  <transition name="fade">
+    <div v-if="isVisible" class="modal-overlay" @click.self="closeModal">
+      <div class="modal-content">
+        <slot></slot>
+        <div class="close-btn" @click="closeModal">&#10005;</div>
 
-      <div class="modal-buttons">
-        <button @click="incrementFavoriteCount">Add to Favourites</button>
-        <button @click="closeModal">Details</button>
+        <div class="modal-buttons">
+          <button @click="addToFavourite">Add to Favourites</button>
+          <button @click="openDetails">Details</button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import useFavorites from '@/store/useFavs'
 
@@ -22,22 +24,38 @@ export default defineComponent({
     return { incrementFavoriteCount }
   },
   props: {
-    isVisible: Boolean
+    isVisible: Boolean,
+    isDetailsVisible: Boolean
   },
+  emits: ['update:isVisible', 'update:isDetailsVisible', 'handleFavs'],
   methods: {
     closeModal() {
       this.$emit('update:isVisible', false)
     },
+    openDetails() {
+      this.$emit('update:isDetailsVisible', true)
+      console.log('test: ', this.isDetailsVisible)
+      this.closeModal()
+    },
     addToFavourite() {
       console.log('localstorage: ', localStorage.getItem('favCount'))
-      // this.$emit('addToFav')
-      this.$emit('update:isVisible', false)
+      this.incrementFavoriteCount()
+      this.closeModal()
     }
   }
 })
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
