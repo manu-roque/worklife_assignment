@@ -3,6 +3,7 @@
 ## Setup
 
 ```bash
+cd worklife_assignment
 npm install
 npm run dev
 ```
