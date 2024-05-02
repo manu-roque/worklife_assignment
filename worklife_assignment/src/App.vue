@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { RouterLink, RouterView } from 'vue-router'
 import NavComponent from './components/NavComponent.vue'
 import HomeView from './views/HomeView.vue'
 </script>
