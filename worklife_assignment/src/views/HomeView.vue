@@ -10,7 +10,7 @@
     <!-- @addToFav="incFavCount" -->
 
     <div class="results">
-      <data-card
+      <DataCard
         v-for="item in visibleCards"
         :key="item.id"
         :cardData="item"
