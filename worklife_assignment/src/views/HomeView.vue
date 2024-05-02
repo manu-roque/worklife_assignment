@@ -79,12 +79,8 @@ export default {
       showDetails: false,
       selectedCardData: {},
       query: '', // TODO
-      filtered: [],
       favCount: 0
     }
-  },
-  mounted() {
-    this.filtered = this.itemsArray
   },
   computed: {
     visibleCards() {
@@ -95,7 +91,7 @@ export default {
     loadMore() {
       this.visibleCount += this.loadStep
     },
-    async getAnswer() {
+    async getRequestAnswer() {
       try {
         const { data } = await axios.get(
           'https://www.rijksmuseum.nl/api/en/collection?key=t75FdAMR&type=print&ps=40'
@@ -116,7 +112,7 @@ export default {
     filterCards() {} // TODO
   },
   beforeMount() {
-    this.getAnswer()
+    this.getRequestAnswer()
     console.log('itemsarray: ', this.itemsArray)
   }
 }

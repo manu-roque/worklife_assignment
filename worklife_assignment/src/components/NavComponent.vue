@@ -29,6 +29,7 @@ import '../style/NavComponent.css'
 import useFavorites from '@/store/useFavs'
 
 export default defineComponent({
+  name: 'NavComponent',
   setup() {
     const { favoriteCount, synchronizeFavoriteCount } = useFavorites()
 
@@ -48,7 +49,6 @@ export default defineComponent({
 
     return { favoriteCount }
   },
-  name: 'NavComponent',
   data() {
     return {
       scrollNav: false,
@@ -90,9 +90,7 @@ export default defineComponent({
         'https://assets-global.website-files.com/61af5d184e447e5a0cba3ff3/61af67929d99f1401ab23852_logo.svg'
       this.mobile = false
       this.mobileNav = false
-    },
-
-    updateFavCount() {}
+    }
   }
 })
 </script>

@@ -16,10 +16,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import useFavorites from '@/store/useFavs'
 
 import '../style/DetailsComponent.css'
-
-import useFavorites from '@/store/useFavs'
 
 export default defineComponent({
   setup() {
@@ -31,9 +30,6 @@ export default defineComponent({
       type: Object
     },
     isDetailsVisible: Boolean
-  },
-  created() {
-    console.log('cardData', this.selectedCard)
   },
   emits: ['update:isDetailsVisible'],
   methods: {
