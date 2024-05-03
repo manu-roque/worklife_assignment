@@ -37,11 +37,9 @@ export default defineComponent({
     },
     openDetails() {
       this.$emit('update:isDetailsVisible', true)
-      console.log('test: ', this.isDetailsVisible)
       this.closeModal()
     },
     addToFavourite() {
-      console.log('localstorage: ', localStorage.getItem('favCount'))
       this.incrementFavoriteCount()
       this.closeModal()
     }

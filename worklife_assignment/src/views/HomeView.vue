@@ -100,7 +100,6 @@ export default {
         this.answer = data
         this.itemsArray = data.artObjects
 
-        console.log('data: ', data)
       } catch (error) {
         console.log(error)
       }
@@ -113,7 +112,6 @@ export default {
   },
   beforeMount() {
     this.getRequestAnswer()
-    console.log('itemsarray: ', this.itemsArray)
   }
 }
 </script>
